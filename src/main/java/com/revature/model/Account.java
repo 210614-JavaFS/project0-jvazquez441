@@ -1,32 +1,27 @@
 package com.revature.model;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Account {
 
-	private int accountId; // Account Number
-	private double balance;
-	private String accountType;
-	private String accountStatus;
-	private List<User> accountOwners;
+	private int accountId;
+	private String accountName;
+	private double accountBalance;
+	private AccountType accountType;
+	private AccountStatus accountStatus;
+	private ArrayList<User> accountOwners;
 
 	public Account() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Account(int accountId, double balance, String accountType, String accountStatus, List<User> accountOwners) {
+	public Account(int accountId, String accountName, double accountBalance, AccountType accountType,
+			AccountStatus accountStatus, ArrayList<User> accountOwners) {
 		super();
 		this.accountId = accountId;
-		this.balance = balance;
-		this.accountType = accountType;
-		this.accountStatus = accountStatus;
-		this.accountOwners = accountOwners;
-	}
-
-	public Account(double balance, String accountType, String accountStatus, List<User> accountOwners) {
-		super();
-		this.balance = balance;
+		this.accountName = accountName;
+		this.accountBalance = accountBalance;
 		this.accountType = accountType;
 		this.accountStatus = accountStatus;
 		this.accountOwners = accountOwners;
@@ -40,35 +35,43 @@ public class Account {
 		this.accountId = accountId;
 	}
 
-	public double getBalance() {
-		return balance;
+	public String getAccountName() {
+		return accountName;
 	}
 
-	public void setBalance(double balance) {
-		this.balance = balance;
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
 	}
 
-	public String getAccountType() {
+	public double getAccountBalance() {
+		return accountBalance;
+	}
+
+	public void setAccountBalance(double accountBalance) {
+		this.accountBalance = accountBalance;
+	}
+
+	public AccountType getAccountType() {
 		return accountType;
 	}
 
-	public void setAccountType(String accountType) {
+	public void setAccountType(AccountType accountType) {
 		this.accountType = accountType;
 	}
 
-	public String getAccountStatus() {
+	public AccountStatus getAccountStatus() {
 		return accountStatus;
 	}
 
-	public void setAccountStatus(String accountStatus) {
+	public void setAccountStatus(AccountStatus accountStatus) {
 		this.accountStatus = accountStatus;
 	}
 
-	public List<User> getAccountOwners() {
+	public ArrayList<User> getAccountOwners() {
 		return accountOwners;
 	}
 
-	public void setAccountOwners(List<User> accountOwners) {
+	public void setAccountOwners(ArrayList<User> accountOwners) {
 		this.accountOwners = accountOwners;
 	}
 
@@ -76,13 +79,14 @@ public class Account {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(accountBalance);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + accountId;
+		result = prime * result + ((accountName == null) ? 0 : accountName.hashCode());
 		result = prime * result + ((accountOwners == null) ? 0 : accountOwners.hashCode());
 		result = prime * result + ((accountStatus == null) ? 0 : accountStatus.hashCode());
 		result = prime * result + ((accountType == null) ? 0 : accountType.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(balance);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
@@ -95,32 +99,32 @@ public class Account {
 		if (getClass() != obj.getClass())
 			return false;
 		Account other = (Account) obj;
+		if (Double.doubleToLongBits(accountBalance) != Double.doubleToLongBits(other.accountBalance))
+			return false;
 		if (accountId != other.accountId)
+			return false;
+		if (accountName == null) {
+			if (other.accountName != null)
+				return false;
+		} else if (!accountName.equals(other.accountName))
 			return false;
 		if (accountOwners == null) {
 			if (other.accountOwners != null)
 				return false;
 		} else if (!accountOwners.equals(other.accountOwners))
 			return false;
-		if (accountStatus == null) {
-			if (other.accountStatus != null)
-				return false;
-		} else if (!accountStatus.equals(other.accountStatus))
+		if (accountStatus != other.accountStatus)
 			return false;
-		if (accountType == null) {
-			if (other.accountType != null)
-				return false;
-		} else if (!accountType.equals(other.accountType))
-			return false;
-		if (Double.doubleToLongBits(balance) != Double.doubleToLongBits(other.balance))
+		if (accountType != other.accountType)
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Account [accountId=" + accountId + ", balance=" + balance + ", accountType=" + accountType
-				+ ", accountStatus=" + accountStatus + ", accountOwners=" + accountOwners + "]";
+		return "Account [accountId=" + accountId + ", accountName=" + accountName + ", accountBalance=" + accountBalance
+				+ ", accountType=" + accountType + ", accountStatus=" + accountStatus + ", accountOwners="
+				+ accountOwners + "]";
 	}
 
 }
